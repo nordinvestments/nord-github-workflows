@@ -1,16 +1,15 @@
 name: Cypress
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
   workflow_call:
     inputs:
       node-version:
         description: 'The version of node, used for building'
         default: '12.13.0'
+        required: false
+        type: string
+      containers:
+        description: 'The number of containers to run, as an array of container descriptions'
+        default: '[1]'
         required: false
         type: string
 jobs:
@@ -24,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         # Add more numbers to the array, to increase parallelization
-        containers: [1]
+        containers: ${{ fromJSON(inputs.containers) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
