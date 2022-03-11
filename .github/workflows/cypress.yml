@@ -1,0 +1,45 @@
+name: Cypress
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'The version of node, used for building'
+        default: '12.13.0'
+        required: false
+        type: string
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+    env:
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      REACT_APP_ENVIRONMENT: 'test'
+      REACT_APP_CUSTOM_ENVIRONMENT: 'test'
+    strategy:
+      fail-fast: false
+      matrix:
+        # Add more numbers to the array, to increase parallelization
+        containers: [1]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install modules
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ inputs.node-version }}
+          registry-url: https://npm.pkg.github.com/
+          scope: '@nordinvestments'
+
+      # Run all Cypress tests
+      - name: Run Cypress on Currents.dev
+        uses: cypress-io/github-action@v2
+        with:
+          build: yarn run build
+          start: yarn run serve
+          wait-on: 'http://localhost:3000'
+          command: yarn currents run --record --parallel --key ${{ secrets.CURRENTS_RECORD_KEY }} --ci-build-id "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
