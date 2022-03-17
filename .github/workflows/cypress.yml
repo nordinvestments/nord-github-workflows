@@ -12,11 +12,14 @@ on:
         default: '[1]'
         required: false
         type: string
+    secrets:
+      npm-auth-token:
+        required: true
 jobs:
   cypress-tests:
     runs-on: ubuntu-latest
     env:
-      NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      NPM_AUTH_TOKEN: ${{ secrets.npm-auth-token }}
       REACT_APP_ENVIRONMENT: 'test'
       REACT_APP_CUSTOM_ENVIRONMENT: 'test'
     strategy:
