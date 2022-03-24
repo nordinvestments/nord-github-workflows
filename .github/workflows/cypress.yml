@@ -7,6 +7,11 @@ on:
         default: '12.13.0'
         required: false
         type: string
+      locale-domain:
+        description: 'Url which workflow should wait-on'
+        default: 'http://localhost:3000'
+        required: false
+        type: string
       containers:
         description: 'The number of containers to run, as an array of container descriptions'
         default: '[1]'
@@ -45,5 +50,5 @@ jobs:
         with:
           build: yarn run build
           start: yarn run serve
-          wait-on: 'http://localhost:3000'
+          wait-on: ${{ inputs.locale-domain }}
           command: yarn currents run --record --parallel --key ${{ secrets.currents-record-key }} --ci-build-id "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
