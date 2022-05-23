@@ -29,6 +29,8 @@ jobs:
       NPM_AUTH_TOKEN: ${{ secrets.npm-auth-token }}
       REACT_APP_ENVIRONMENT: 'test'
       REACT_APP_CUSTOM_ENVIRONMENT: 'test'
+      ADMIN_USERNAME: ${{ secrets.admin-username }}
+      ADMIN_PASSWORD: ${{ secrets.admin-password }}
     strategy:
       fail-fast: false
       matrix:
