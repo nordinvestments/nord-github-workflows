@@ -22,6 +22,10 @@ on:
         required: true
       currents-record-key:
         required: true
+      cypress-admin-username:
+        required: false
+      cypress-admin-password:
+        required: false
 jobs:
   cypress-tests:
     runs-on: ubuntu-latest
@@ -29,8 +33,8 @@ jobs:
       NPM_AUTH_TOKEN: ${{ secrets.npm-auth-token }}
       REACT_APP_ENVIRONMENT: 'test'
       REACT_APP_CUSTOM_ENVIRONMENT: 'test'
-      ADMIN_USERNAME: ${{ secrets.admin-username }}
-      ADMIN_PASSWORD: ${{ secrets.admin-password }}
+      CYPRESS_ADMIN_USERNAME: ${{ secrets.cypress-admin-username }}
+      CYPRESS_ADMIN_PASSWORD: ${{ secrets.cypress-admin-password }}
     strategy:
       fail-fast: false
       matrix:
