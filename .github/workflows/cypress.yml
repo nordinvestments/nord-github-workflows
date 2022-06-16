@@ -33,6 +33,8 @@ jobs:
       NPM_AUTH_TOKEN: ${{ secrets.npm-auth-token }}
       REACT_APP_ENVIRONMENT: 'test'
       REACT_APP_CUSTOM_ENVIRONMENT: 'test'
+      GATSBY_CUSTOM_ENVIRONMENT: 'test'
+      GATSBY_ENVIRONMENT: 'test'
       CYPRESS_ADMIN_USERNAME: ${{ secrets.cypress-admin-username }}
       CYPRESS_ADMIN_PASSWORD: ${{ secrets.cypress-admin-password }}
     strategy:
