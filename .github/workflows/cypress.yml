@@ -17,6 +17,11 @@ on:
         default: '[1]'
         required: false
         type: string
+      timeout:
+        description: 'The number of minutes before a job will timeout'
+        default: 30
+        required: false
+        type: number
     secrets:
       npm-auth-token:
         required: true
@@ -28,6 +33,7 @@ on:
         required: false
 jobs:
   cypress-tests:
+    timeout-minutes: ${{ inputs.timeout }}
     runs-on: ubuntu-latest
     env:
       NPM_AUTH_TOKEN: ${{ secrets.npm-auth-token }}
